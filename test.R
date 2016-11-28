@@ -36,9 +36,9 @@ choicedata<-function(n,data,p){
 }
 
 library(rms)
-N = 200000000
-NREPL = 1
-n=1000
+N = 1000000
+NREPL = 1000
+n=500
 # 1. X_5. Y_4
 alphay = c(3.89, 4.59, 5.51)
 betay = 0
@@ -53,3 +53,4 @@ for (i in 1:NREPL){
 }
 proc.time()-ptm
 boxplot(beta)
+d<-lrm(y~z,ccdata)
