@@ -1,0 +1,40 @@
+\documentclass{report}
+ \usepackage{CJK}
+ \usepackage{amsmath,amsfonts,latexsym,amssymb}
+ \usepackage{indentfirst}
+ \usepackage{geometry}%页边距
+ \pagestyle{plain}
+\usepackage{graphicx}
+ \usepackage{enumerate}
+ \usepackage{bm}
+\linespread{1.6}
+\geometry{left=2.0cm,right=2.0cm,top=2.5cm,bottom=2.5cm}
+
+
+
+ \begin{document}
+
+\begin{CJK*}{GBK}{song}
+
+
+
+
+\paragraph{初值选取和其它参数估计问题}
+\qquad Cosslett(1981)那个修正的似然函数
+\begin{equation*}\label{}
+   l_m(\beta,\theta) =\sum_{j=1}^J\sum_{i=1}^{n_j}ln\Big[\frac{\lambda_jPr(Y=j|G=g_{ij})}{\sum_{k=1}^J\lambda_kPr(Y=k|G=g_{ij})}]
+\end{equation*}
+其中$\lambda=(\lambda_1,\lambda_2,\dots,\lambda_{J-1}),\lambda_J=n_J/n.$
+\qquad 产生数据是已知参数根据proportional odds model，产生总体样本，比如参数真值为$\theta=(3.48,4.6),\beta=log(1.4)$。
+\\
+我先给定$\beta,\theta$产生总体。根据你文中的方式一样在从总体中采样出case-control样本。我尝试了几种方式，估计参数都不是很理想
+\begin{enumerate}
+  \item 同时估计$\lambda,\beta,\theta$,这种情况下，给定初值不同，有不同的解，结果也不好。
+  \item 其次，我看文章极大似然的步骤，先极大化$\lambda$,再极大化$\beta,\theta$,此时从结果上来看好像是$\beta$是接近真值的，如果重复1000次，感觉比前瞻性似然还要差，但$\theta$就差很远。而且通常极大化的时候给不同初值，也有不一样的结果。
+  \item 我把2中的方法，不断迭代直至$\beta,\theta$稳定，但同样有上述问题，$\beta$是接近真值的，而且效果也不好，但$\theta$就差很远，而且极大化给的初值也会有影响
+  \item 最后我在已知总体信息(产生总体样本中获得的)，计算出理论的$\lambda_j=\frac{n_j}{N_j}$，此时$\beta,\theta$都是相合的，无偏。但是好像不符合假设条件(Y的边缘分布)。
+\end{enumerate}
+
+
+\end{CJK*}
+\end{document}

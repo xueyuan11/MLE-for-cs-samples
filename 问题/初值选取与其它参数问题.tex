@@ -1,0 +1,50 @@
+\documentclass{report}
+ \usepackage{CJK}
+ \usepackage{amsmath,amsfonts,latexsym,amssymb}
+ \usepackage{indentfirst}
+ \usepackage{geometry}%页边距
+ \pagestyle{plain}
+\usepackage{graphicx}
+ \usepackage{enumerate}
+ \usepackage{bm}
+\linespread{1.6}
+\geometry{left=2.0cm,right=2.0cm,top=2.5cm,bottom=2.5cm}
+
+
+
+ \begin{document}
+
+\begin{CJK*}{GBK}{song}
+
+
+\paragraph{初值选取和其它参数估计问题}
+
+\qquad Cosslett(1981)那个修正的似然函数
+\begin{equation*}\label{}
+   l_m(\beta,\theta) =\sum_{j=1}^J\sum_{i=1}^{n_j}ln\Big[\frac{\lambda_jPr(Y=j|G=g_{ij})}{\sum_{k=1}^J\lambda_kPr(Y=k|G=g_{ij})}]
+\end{equation*}
+其中$\lambda=(\lambda_1,\lambda_2,\dots,\lambda_{J-1}),\lambda_J=n_J/n.$\\
+\qquad 产生数据是已知参数根据proportional odds model，产生总体样本N=100000，比如参数真值为$\theta^0=(3.48,4.6),\beta^0=log(1.4)$。
+
+\begin{equation*}
+  Pr(Y=1)=0.97,Pr(Y=2)=0.02,Pr(Y=1)=0.01
+\end{equation*}
+然后在从这个总体抽出case-control样本n=1000个,其中每一类为$n_i$。
+当利用case-control样本估计参数时，总体的信息（Y和G的边缘分布都不知道），然后我看Cosslett的文章好像是分步极大化参数，而且理论上$\lambda$的真知为$\lambda_j=\frac{n_j/n}{Pr(Y=j)}$,其中$Pr(Y=j)$为总体的概率。\\
+\qquad 此时我尝试过极大化所有参数，只有$\beta$的估计值是相对稳定的，其他比如$\lambda,\theta$的参数每次都差了不少。给定初值$c(\theta_1,\theta_2,\theta_3,\beta,\lambda_1,\lambda_2,\lambda_3)$(顺序和你的函数有所不同),我用了两个极大化的参数。另$\lambda_J^0=\frac{n_j}{n}$,则根据总体的信息(估计参数时并不知道)，此时估计的真值应为$\lambda^0_j=Pr(Y=J)*\frac{n_j/n}{Pr(Y=j)}$
+\begin{center}
+    \begin{tabular}{lccccccccccc}
+    \hline	
+			 & \multicolumn{5}{c}{constrOptim} & &\multicolumn{5}{c}{maxLix}\\
+			\cline{2-6}\cline{8-12}
+            初值& $\beta$&$\theta_1 $&$\theta_2$&$\lambda_1$&$\lambda_2$& &$\beta$&$\theta_1 $&$\theta_2$&$\lambda_1$&$\lambda_2$ \\
+          aa& 186  & 49&   14\\
+          Aa  & 647  &293  &150\\
+          AA &420 & 487 & 260\\\hline
+          Total&1253& 829& 424\\\hline\\
+          \multicolumn{10}{c}{\textbf{图b 回顾型数据}}\\
+	\end{tabular}
+\end{center}
+
+\end{CJK*}
+\end{document}

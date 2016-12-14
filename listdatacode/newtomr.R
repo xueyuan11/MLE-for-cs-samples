@@ -34,7 +34,7 @@ proln<-function(x,y,para){
   th<-c(-Inf,para[-1],Inf)
   for (i in 1:n){
     for (j in 1:ny){
-      ln=ln+c[i,j]*(phi(th[j+1]-crossprod(para[1],x[i]))-phi(th[j]-crossprod(para[1],x[i])))
+      ln=ln+log(c[i,j]*(phi(th[j+1]-crossprod(para[1],x[i]))-phi(th[j]-crossprod(para[1],x[i]))))
     }
   } 
   return(ln)
@@ -45,7 +45,7 @@ gproln<-function(x,y,para){
   c=indi(y)
   th<-c(-Inf,para[-1],Inf)
   q=NULL
-   p=NULL
+  p=NULL
   
   for (i in 1:n){
     for (j in 1:ny){
@@ -77,7 +77,9 @@ for (i in 1:2){
     Amat[i,i+1]=-1
     Amat[i,i+2]=1
 }
-constrOptim(c(0,1,1.5,3),opproln,opgproln,ui=Amat,ci=rep(0,2))
+constrOptim(c(2.0,1,1.5,3),opproln,opgproln,ui=Amat,ci=rep(0,2))
+para<-c(-1.3543234 ,0.9292035 ,2.4862358 ,3.7829790 )
+para<-c(4.690989, 13.992242 ,14.438742 ,26.217737)
 proln(x,y,para)
 rtrln(x,y,para,lamda)
 gproln(x,y,para)
